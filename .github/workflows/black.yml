@@ -1,0 +1,30 @@
+name: Black Formatting
+
+on:
+  push:
+    branches:
+      - main  # Change this to your main branch name
+  pull_request:
+    branches:
+      - main  # Change this to your main branch name
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+    
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.10  # Choose the Python version you want to use
+    
+    - name: Install dependencies
+      run: |
+        pip install --upgrade pip
+        pip install black
+      working-directory: ${{ github.workspace }}
+    
+    - name: Run Black
+      run: black .
